@@ -1,0 +1,61 @@
+#!/bin/bash -x
+
+
+echo "Welcome : to Filp Coin Simulator"
+
+eclare -A perdict
+function flipc()
+{
+       flipCoin=$((RANDOM%2))
+        echo $flipCoin
+}
+function singlest()
+{
+ h=1 t=0
+ for (( i=0; i<=10; i++ ))
+ do
+ coin1=$(flipc)
+ case $coin1 in
+ $h)
+ dict[flip$i]='H'
+ COUNT_HEAD=$(( $COUNT_HEAD + 1 ));;
+ $t)
+
+ dict[flip$i]='T'
+ COUNT_TAIL=$(( $COUNT_TAIL + 1 ))
+ ;;
+ esac
+
+ done
+ perdict[result1]="$COUNT_TAIL"
+ perdict[result2]="$COUNT_HEAD"
+ for win in ${!perdict[@]}
+do
+echo ${perdict[$win]}
+done | sort -nr 
+echo "percentage OF head" $(( $COUNT_HEAD  ))
+echo "percentage OF tail" $(( $COUNT_TAIL  ))
+coinflip
+
+}
+
+function coinflip()
+{
+echo "Enther the no coin toss 1 For Single 2 For double 3 For Tripal"
+read choice
+case $choice in
+   1) singlest;;
+   2) doublet;;
+   3) triplet;;
+esac
+}
+
+main()
+{
+   COUNT_HEAD=0
+   COUNT_TAIL=0
+  
+   coinflip
+}
+main
+
