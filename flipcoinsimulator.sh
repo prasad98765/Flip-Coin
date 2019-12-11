@@ -7,9 +7,10 @@ function flipcoin(){
 num=$1
 number=$2
 declare -A coinset
+
 	for (( i=0; i<$number; i++ ))
 	do
-			coin=""
+		coin=""
          for (( j=0; j<$num; j++ ))
          do
              flipCoin=$((RANDOM%2))
@@ -29,6 +30,7 @@ do
 	 echo "$val ${coinset[$val]} $perCet"
 
 done | sort -k3 -nr | awk 'NR==1{print ($1 " " $2 " " $3 )}'
+
 }
 
 main(){
@@ -48,4 +50,5 @@ read -p "Enter How Many Times You Want to Flip " number
         esac
 
 }
+
 main
