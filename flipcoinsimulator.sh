@@ -13,11 +13,11 @@ function getFlipingCoin()
 			do
 				if [ $((RANDOM%2)) -eq 1 ]
 				then
-                    coin="$coin""H"
+							coin="$coin""H"
 				else
-                    coin="$coin""T"
+							coin="$coin""T"
 				fi
-         done
+         	done
 				flipCoinResult[$coin]=$(( ${flipCoinResult["$coin"]} + 1 ))
 	done
 	getPercentageOfCoin
@@ -30,7 +30,7 @@ function getPercentageOfCoin()
 	for val in ${!flipCoinResult[@]}
 	do
 		percentageOfCoin=$(( $((${flipCoinResult[$val]} * 100)) /$number ))
-	 	echo "$val ${flipCoinResult[$val]} $percentageOfCoin"
+		echo "$val ${flipCoinResult[$val]} $percentageOfCoin"
 	done | sort -k3 -nr | awk 'NR==1{print ($1 " " $2 " " $3 )}'
 
 }
@@ -41,7 +41,7 @@ function getChoice()
 	read -p "Enter your choice: 1.SingletCoin 2.DoubletCoin 3.TripletCoin " coin
 	read -p "Enter How Many Times You Want to Flip Coin " number
 
-        case $coin in
+		case $coin in
         1)
                 getFlipingCoin 1 $number;;
         2)
