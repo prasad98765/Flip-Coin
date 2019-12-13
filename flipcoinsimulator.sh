@@ -1,54 +1,63 @@
 #!/bin/bash -x
 
-number=0
+echo "Welcome : to Filp Coin Simulator"
+declare -A flipCoinResult
 
-function flipcoin(){
+function getFlipingCoin()
+{
 
-num=$1
-number=$2
-declare -A coinset
-
-	for (( i=0; i<$number; i++ ))
+	for (( i=0; i<$2; i++ ))
 	do
-		coin=""
-         for (( j=0; j<$num; j++ ))
-         do
-             flipCoin=$((RANDOM%2))
-             if [ $flipCoin -eq 1 ]
-             then
+			coin=""
+			for (( j=0; j<$1; j++ ))
+			do
+				if [ $((RANDOM%2)) -eq 1 ]
+				then
                     coin="$coin""H"
-             else
+				else
                     coin="$coin""T"
-             fi
-          done
-             coinset[$coin]=$(( ${coinset["$coin"]} + 1 ))
+				fi
+         done
+				flipCoinResult[$coin]=$(( ${flipCoinResult["$coin"]} + 1 ))
 	done
-
-for val in ${!coinset[@]}
-do
-	 perCet=$(( $((${coinset[$val]} * 100)) /20 ))
-	 echo "$val ${coinset[$val]} $perCet"
-
-done | sort -k3 -nr | awk 'NR==1{print ($1 " " $2 " " $3 )}'
+	getPercentageOfCoin
 
 }
 
-main(){
+function getPercentageOfCoin()
+{
 
-read -p "Enter your choice: 1.SingletCoin 2.DoubletCoin 3.TripletCoin " coin
-read -p "Enter How Many Times You Want to Flip " number
+	for val in ${!flipCoinResult[@]}
+	do
+		percentageOfCoin=$(( $((${flipCoinResult[$val]} * 100)) /$number ))
+	 	echo "$val ${flipCoinResult[$val]} $percentageOfCoin"
+	done | sort -k3 -nr | awk 'NR==1{print ($1 " " $2 " " $3 )}'
+
+}
+
+function getChoice()
+{
+
+	read -p "Enter your choice: 1.SingletCoin 2.DoubletCoin 3.TripletCoin " coin
+	read -p "Enter How Many Times You Want to Flip Coin " number
 
         case $coin in
         1)
-                flipcoin 1 $number;;
+                getFlipingCoin 1 $number;;
         2)
-                flipcoin 2 $number;;
+                getFlipingCoin 2 $number;;
         3)
-                flipcoin 3 $number;;
+                getFlipingCoin 3 $number;;
         *)
                 echo "Invalid Option";;
         esac
 
 }
 
+function main()
+{
+
+	getChoice
+
+}
 main
